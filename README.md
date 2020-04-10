@@ -1,4 +1,5 @@
-How to init kafka server on windows:
+How to init kafka server on windows cli:
+
 1. start zookeeper from Projects dir:
 kafka\bin\windows\zookeeper-server-start.bat kafka\config\zookeeper.properties
 Stay the window open

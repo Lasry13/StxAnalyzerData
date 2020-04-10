@@ -1,5 +1,6 @@
-package co.stxanalyzer;
+package co.stxanalyzer.playground;
 
+import co.stxanalyzer.config.Config;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -10,8 +11,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Properties;
 
-public class Producer {
-    private static final Logger logger = LogManager.getLogger(Producer.class);
+public class ProducerTest {
+    private static final Logger logger = LogManager.getLogger(ProducerTest.class);
 
     public static void main(String[] args) {
 
