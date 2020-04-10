@@ -23,11 +23,12 @@ public class TransactionProducer {
         props.put("value.serializer", "co.stxanalyzer.serializer.TransactionSerializer");
 
         KafkaProducer<String, Transaction> producer = new KafkaProducer<>(props);
-        Transaction t1 = new Transaction("INTC", "1week", 54.95, 61.43, 52.84, 57.14, 4280523560L);
-
-        logger.info("Start sending transactions...");
-        producer.send(new ProducerRecord<>(Config.topicName, "transaction", t1));
-
+        for(int i=0; i<10; i++) {
+            double n = Math.random() * 10 + 50.0;
+            Transaction transaction = new Transaction("INTC", "5min", n, n + Math.random()*10, n - Math.random()*10, Math.random(), (long) (Math.random() * 1000000));
+            logger.info("Start sending transactions...");
+            producer.send(new ProducerRecord<>(Config.topicName, "transaction", transaction));
+        }
         logger.info("Finished - Closing Kafka Producer.");
         producer.close();
     }
