@@ -1,1 +1,2 @@
-C:\Users\danie\Desktop\Projects\kafka\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic summary --from-beginning
+C:\Users\danie\Desktop\Projects\kafka\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic summary --from-beginning --property print.key=true --property print.value=true /
+--property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer
