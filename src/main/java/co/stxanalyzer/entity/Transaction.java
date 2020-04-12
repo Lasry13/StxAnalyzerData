@@ -1,5 +1,7 @@
 package co.stxanalyzer.entity;
 
+import java.util.Date;
+
 public class Transaction {
     private String stockId;
     private String interval;
@@ -8,9 +10,6 @@ public class Transaction {
     private double low;
     private double close;
     private long volume;
-
-    private Transaction() {
-    }
 
     public Transaction(String stockId, String interval, double open, double high, double low, double close, long volume) {
         this.stockId = stockId;
@@ -21,6 +20,8 @@ public class Transaction {
         this.close = close;
         this.volume = volume;
     }
+
+    public Transaction(){};
 
     public String getStockId() {
         return stockId;
@@ -78,10 +79,21 @@ public class Transaction {
         this.volume = volume;
     }
 
+//    public boolean isValueUp(){
+//        return open < close;
+//    }
+
+//    public double getDailyChangePercentage(){
+//        if(isValueUp())
+//            return 100-open/close*100;
+//        return 100-close/open*100;
+//
+//    }
+
     @Override
     public String toString() {
-        return "Transaction{" +
-                "stockId='" + stockId + '\'' +
+        return "Stock{" +
+                ", stockId='" + stockId + '\'' +
                 ", interval='" + interval + '\'' +
                 ", open=" + open +
                 ", high=" + high +
@@ -90,5 +102,9 @@ public class Transaction {
                 ", volume=" + volume +
                 '}';
     }
-}
 
+//    @Override
+//    public int compareTo(Stock stock) {
+//        return (int) (this.getDailyChangePercentage() - stock.getDailyChangePercentage());
+//    }
+}

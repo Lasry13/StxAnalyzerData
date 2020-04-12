@@ -3,26 +3,24 @@ package co.stxanalyzer.consumer;
 import java.util.*;
 
 import co.stxanalyzer.config.Config;
-import co.stxanalyzer.config.IKafkaConstants;
 import co.stxanalyzer.entity.Transaction;
-import co.stxanalyzer.producer.TransactionProducer;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class TransactionConsumer {
-    private static final Logger logger = LogManager.getLogger(TransactionProducer.class);
+    private static final Logger logger = LogManager.getLogger(TransactionConsumer.class);
 
     public static void main(String[] args) {
         logger.info("Creating Kafka Consumer...");
         Properties props = new Properties();
-        props.put(ProducerConfig.CLIENT_ID_CONFIG, Config.applicationID);
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, Config.bootstrapServers);
+        props.put(ConsumerConfig.CLIENT_ID_CONFIG, Config.applicationID);
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, Config.bootstrapServers);
         props.put("group.id", "consumer");
         props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        props.put("value.deserializer", "co.stxanalyzer.deserializer.TransactionDeserializer");
+        props.put("value.deserializer", "co.stxanalyzer.deserializer.StockDeserializer");
 
         try {
             int noMessageFound = 0;
@@ -32,7 +30,7 @@ public class TransactionConsumer {
                 ConsumerRecords<String, Transaction> messages = consumer.poll(1000);
                 if (messages.count() == 0) {
                     noMessageFound++;
-                    if (noMessageFound > IKafkaConstants.MAX_NO_MESSAGE_FOUND_COUNT)
+                    if (noMessageFound > Config.MAX_NO_MESSAGE_FOUND_COUNT)
                         break;
                     else
                         continue;
